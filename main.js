@@ -12,24 +12,30 @@
     firebase.initializeApp(config);
     var database = firebase.database();
     var userdatabase = firebase.database().ref("users").orderByKey()
+    // Below is what happens when the page refresh, using "once"
     userdatabase.once("value", function(snapshot){
+            $(".displayRow").empty()      
         snapshot.forEach(function(childsnapshot){
             var key = childsnapshot.key
             var childdata = childsnapshot.val();
-            console.log("key = " +key)
-            console.log("data "+childdata)
+            console.log('test test '+childdata.employeeName)
+            $(".displayRow").append( 
+              "<tr>" +
+              "<th scope='row'></th>" + 
+              "<td>" + childdata.employeeName + "</td>" +
+              "<td>" + childdata.role + "</td>" +
+              "<td>" + childdata.startDate + "</td>" +
+              "<td>" + childdata.monthlyRate + "</td>" +
+              "<td>" + childdata.monthsWorked + "</td>" +
+              "<td>" + childdata.totalBilled + "</td>" +
+              "</tr>");
         })
     })
 
-var  employeeName = "Vu Duong"
-var    role = "Security"
-var    startDate = "01/01/2011"
-var    monthlyRate = "200"
-var    monthsWorked = 23
-var    totalBilled = 20202
+
 
 function writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, totalBilled) {
-  // A post entry.
+  // This function takes innput from the form and update the firebase database
     var postData = {
         employeeName: employeeName,
         role: role,
@@ -37,48 +43,42 @@ function writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, 
         monthlyRate: monthlyRate,
         monthsWorked: monthsWorked,
         totalBilled: totalBilled,
-        // uid: uid,
     };
   console.log(postData)
-
   // Get a key for a new Post.
     var newPostKey = firebase.database().ref().child('users').push().key;
-    console.log(newPostKey)
-
   // Write the new post's data simultaneously in the posts list and the user's post list.
     var updates = {};
     updates['/users/' + newPostKey] = postData;
     console.log(updates)
     firebase.database().ref().update(updates);
 }
-writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, totalBilled)
-// Vu Code -----------------------
-
-
+// Below is what happens when user click submit
+    $("#submit").on("click", function() {
+      var     employeeName = "blink"
+      var    role = "Security"
+      var    startDate = "01/01/2011"
+      var    monthlyRate = "200"
+      var    monthsWorked = 23
+      var    totalBilled = 20202
+      // assumming we have all information above
+      writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, totalBilled)
+      // Update the database
+    });
 
 //Danny Code 
     // Firebase watcher + initial loader HINT: This code behaves similarly to .on("value")
-    database.ref().on("child_added", function(childSnapshot) {
-
-      // Log everything that's coming out of snapshot
-      console.log(childSnapshot.val().employeeName);
-      console.log(childSnapshot.val().role);
-      console.log(childSnapshot.val().startDate);
-      console.log(childSnapshot.val().monthlyRate);
-      console.log(childSnapshot.val().monthsWorked);
-      console.log(childSnapshot.val().joinDate);
-
-      // full list of items to the well
-    
+    userdatabase.on("child_added", function(childSnapshot) {
+      var childadded = childSnapshot.val()
     $(".displayRow").append( 
         "<tr>" +
         "<th scope='row'></th>" + 
-        "<td>" + childSnapshot.val().employeeName + "</td>" +
-        "<td>" + childSnapshot.val().role + "</td>" +
-        "<td>" + childSnapshot.val().startDate + "</td>" +
-        "<td>" + childSnapshot.val().monthlyRate + "</td>" +
-        "<td>" + childSnapshot.val().monthsWorked + "</td>" +
-        "<td>" + childSnapshot.val().totalBilled + "</td>" +
+        "<td>" + childadded.employeeName + "</td>" +
+        "<td>" + childadded.role + "</td>" +
+        "<td>" + childadded.startDate + "</td>" +
+        "<td>" + childadded.monthlyRate + "</td>" +
+        "<td>" + childadded.monthsWorked + "</td>" +
+        "<td>" + childadded.totalBilled + "</td>" +
         "</tr>");
 
       // Handle the errors

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 // Vu codes-------------------------------
 
         // Initialize Firebase
@@ -46,3 +47,22 @@ function writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, 
 }
 writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, totalBilled)
 // Vu Code -----------------------
+=======
+//Creating event listener for inputs
+var inputs = {
+    empName: "",
+    Role: "",
+    startDt: "",
+    monthlyRt: ""
+};
+
+$("#submit").on("click", function(event) {
+    event.preventDefault();
+    
+    inputs.empName=$("#empName").val().trim();
+    inputs.Role=$("#Role").val().trim();
+    inputs.startDt=$("#startDt").val().trim();
+    inputs.monthlyRt=$("#monthlyRt").val().trim();
+    console.log(inputs);
+});
+>>>>>>> Stashed changes

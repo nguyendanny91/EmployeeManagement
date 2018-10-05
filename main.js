@@ -1,14 +1,17 @@
 // Vu codes-------------------------------
 
-function writeNewPost(uid, username, picture, title, body) {
+var
+
+function writeNewPost(employeeName, role, title, body) {
   // A post entry.
   var postData = {
-    author: username,
-    uid: uid,
-    body: body,
-    title: title,
-    starCount: 0,
-    authorPic: picture
+    employeeName: employeeName,
+    role: role,
+    startDate: startDate,
+    monthlyRate: monthlyRate,
+    monthsWorked: monthsWorked,
+    totalBilled: totalBilled,
+    // uid: uid,
   };
 
   // Get a key for a new Post.
@@ -17,7 +20,7 @@ function writeNewPost(uid, username, picture, title, body) {
   // Write the new post's data simultaneously in the posts list and the user's post list.
   var updates = {};
   updates['/posts/' + newPostKey] = postData;
-  updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+//   updates['/user-posts/' + uid + '/' + newPostKey] = postData;
 
   return firebase.database().ref().update(updates);
 }

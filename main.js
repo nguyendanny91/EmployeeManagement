@@ -1,13 +1,13 @@
 // Vu codes-------------------------------
 
         // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyDnSKcK450cM1SRo6doE2oCQVOkigTa6Ow",
-        authDomain: "testproject-ccb91.firebaseapp.com",
-        databaseURL: "https://testproject-ccb91.firebaseio.com",
-        projectId: "testproject-ccb91",
-        storageBucket: "testproject-ccb91.appspot.com",
-        messagingSenderId: "561234705065"
+  var config = {
+    apiKey: "AIzaSyArvG1xk1bcGdTRRLUqjdZxDLcV-284H7Q",
+    authDomain: "august-2018t-th.firebaseapp.com",
+    databaseURL: "https://august-2018t-th.firebaseio.com",
+    projectId: "august-2018t-th",
+    storageBucket: "august-2018t-th.appspot.com",
+    messagingSenderId: "837166823192"
     };
     firebase.initializeApp(config);
     var database = firebase.database();
@@ -58,7 +58,7 @@ writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, totalBill
 
 //Danny Code 
     // Firebase watcher + initial loader HINT: This code behaves similarly to .on("value")
-    dataRef.ref().on("child_added", function(childSnapshot) {
+    database.ref().on("child_added", function(childSnapshot) {
 
       // Log everything that's coming out of snapshot
       console.log(childSnapshot.val().employeeName);

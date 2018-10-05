@@ -46,3 +46,35 @@ function writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, 
 }
 writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, totalBilled)
 // Vu Code -----------------------
+
+
+
+//Danny Code 
+    // Firebase watcher + initial loader HINT: This code behaves similarly to .on("value")
+    dataRef.ref().on("child_added", function(childSnapshot) {
+
+      // Log everything that's coming out of snapshot
+      console.log(childSnapshot.val().employeeName);
+      console.log(childSnapshot.val().role);
+      console.log(childSnapshot.val().startDate);
+      console.log(childSnapshot.val().monthlyRate);
+      console.log(childSnapshot.val().monthsWorked);
+      console.log(childSnapshot.val().joinDate);
+
+      // full list of items to the well
+    
+    $(".displayRow").append( 
+        "<tr>" +
+        "<th scope='row'></th>" + 
+        "<td>" + childSnapshot.val().employeeName + "</td>" +
+        "<td>" + childSnapshot.val().role + "</td>" +
+        "<td>" + childSnapshot.val().startDate + "</td>" +
+        "<td>" + childSnapshot.val().monthlyRate + "</td>" +
+        "<td>" + childSnapshot.val().monthsWorked + "</td>" +
+        "<td>" + childSnapshot.val().totalBilled + "</td>" +
+        "</tr>");
+
+      // Handle the errors
+    }, function(errorObject) {
+      console.log("Errors handled: " + errorObject.code);
+    });

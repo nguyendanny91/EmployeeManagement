@@ -52,5 +52,20 @@ function writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, 
     firebase.database().ref().update(updates);
 }
 writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, totalBilled)
-console.log(database)
-// Vu Code -----------------------
+//Creating event listener for inputs
+var inputs = {
+    empName: "",
+    Role: "",
+    startDt: "",
+    monthlyRt: ""
+};
+
+$("#submit").on("click", function(event) {
+    event.preventDefault();
+    
+    inputs.empName=$("#empName").val().trim();
+    inputs.Role=$("#Role").val().trim();
+    inputs.startDt=$("#startDt").val().trim();
+    inputs.monthlyRt=$("#monthlyRt").val().trim();
+    console.log(inputs);
+});

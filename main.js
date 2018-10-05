@@ -1,13 +1,13 @@
 // Vu codes-------------------------------
 
         // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyDnSKcK450cM1SRo6doE2oCQVOkigTa6Ow",
-        authDomain: "testproject-ccb91.firebaseapp.com",
-        databaseURL: "https://testproject-ccb91.firebaseio.com",
-        projectId: "testproject-ccb91",
-        storageBucket: "testproject-ccb91.appspot.com",
-        messagingSenderId: "561234705065"
+  var config = {
+    apiKey: "AIzaSyArvG1xk1bcGdTRRLUqjdZxDLcV-284H7Q",
+    authDomain: "august-2018t-th.firebaseapp.com",
+    databaseURL: "https://august-2018t-th.firebaseio.com",
+    projectId: "august-2018t-th",
+    storageBucket: "august-2018t-th.appspot.com",
+    messagingSenderId: "837166823192"
     };
     firebase.initializeApp(config);
     var database = firebase.database();
@@ -52,20 +52,36 @@ function writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, 
     firebase.database().ref().update(updates);
 }
 writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, totalBilled)
-//Creating event listener for inputs
-var inputs = {
-    empName: "",
-    Role: "",
-    startDt: "",
-    monthlyRt: ""
-};
+// Vu Code -----------------------
 
-$("#submit").on("click", function(event) {
-    event.preventDefault();
+
+
+//Danny Code 
+    // Firebase watcher + initial loader HINT: This code behaves similarly to .on("value")
+    database.ref().on("child_added", function(childSnapshot) {
+
+      // Log everything that's coming out of snapshot
+      console.log(childSnapshot.val().employeeName);
+      console.log(childSnapshot.val().role);
+      console.log(childSnapshot.val().startDate);
+      console.log(childSnapshot.val().monthlyRate);
+      console.log(childSnapshot.val().monthsWorked);
+      console.log(childSnapshot.val().joinDate);
+
+      // full list of items to the well
     
-    inputs.empName=$("#empName").val().trim();
-    inputs.Role=$("#Role").val().trim();
-    inputs.startDt=$("#startDt").val().trim();
-    inputs.monthlyRt=$("#monthlyRt").val().trim();
-    console.log(inputs);
-});
+    $(".displayRow").append( 
+        "<tr>" +
+        "<th scope='row'></th>" + 
+        "<td>" + childSnapshot.val().employeeName + "</td>" +
+        "<td>" + childSnapshot.val().role + "</td>" +
+        "<td>" + childSnapshot.val().startDate + "</td>" +
+        "<td>" + childSnapshot.val().monthlyRate + "</td>" +
+        "<td>" + childSnapshot.val().monthsWorked + "</td>" +
+        "<td>" + childSnapshot.val().totalBilled + "</td>" +
+        "</tr>");
+
+      // Handle the errors
+    }, function(errorObject) {
+      console.log("Errors handled: " + errorObject.code);
+    });

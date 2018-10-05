@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 // Vu codes-------------------------------
 
         // Initialize Firebase
@@ -12,6 +11,15 @@
     };
     firebase.initializeApp(config);
     var database = firebase.database();
+    var userdatabase = firebase.database().ref("users").orderByKey()
+    userdatabase.once("value", function(snapshot){
+        snapshot.forEach(function(childsnapshot){
+            var key = childsnapshot.key
+            var childdata = childsnapshot.val();
+            console.log("key = " +key)
+            console.log("data "+childdata)
+        })
+    })
 
 var  employeeName = "Vu Duong"
 var    role = "Security"
@@ -40,14 +48,10 @@ function writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, 
   // Write the new post's data simultaneously in the posts list and the user's post list.
     var updates = {};
     updates['/users/' + newPostKey] = postData;
-//   updates['/user-posts/' + uid + '/' + newPostKey] = postData;
     console.log(updates)
-
     firebase.database().ref().update(updates);
 }
 writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, totalBilled)
-// Vu Code -----------------------
-=======
 //Creating event listener for inputs
 var inputs = {
     empName: "",
@@ -65,4 +69,3 @@ $("#submit").on("click", function(event) {
     inputs.monthlyRt=$("#monthlyRt").val().trim();
     console.log(inputs);
 });
->>>>>>> Stashed changes

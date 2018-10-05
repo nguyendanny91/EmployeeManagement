@@ -59,9 +59,12 @@ function writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, 
       var    role = "Security"
       var    startDate = "01/01/2011"
       var    monthlyRate = "200"
-      var    monthsWorked = 23
-      var    totalBilled = 20202
-      // assumming we have all information above
+      // assumming we have all information above, Omar adds code to here   
+      var starDateMoment = moment(startDate,"MM/DD/YYYY")
+      var    monthsWorked = moment().diff(starDateMoment, 'months')
+      console.log("this is monthsworks " + monthsWorked)
+      var    totalBilled = Number(monthlyRate)*monthsWorked
+      console.log("this is totalbilled " + totalBilled)
       writeNewPost(employeeName, role, startDate, monthlyRate, monthsWorked, totalBilled)
       // Update the database
     });
